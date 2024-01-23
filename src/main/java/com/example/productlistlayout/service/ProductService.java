@@ -51,6 +51,15 @@ public class ProductService {
         var value = productRepository.findById(id);
         return value.orElse(null);
     }
+
+    public List<Product> getAllProductByIds(long[] ids) {
+        List<Product> products = new ArrayList<>();
+        for (long id: ids) {
+            var value = productRepository.findById(id);
+            value.ifPresent(products::add);
+        }
+        return products;
+    }
     public Product getProduct(Product product){
         return getProductById(product.getId());
     }

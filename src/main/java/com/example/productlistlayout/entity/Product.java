@@ -1,5 +1,7 @@
 package com.example.productlistlayout.entity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,4 +29,14 @@ public class Product {
     private Float price;
     @DecimalMin(value = "0.0", inclusive = false, message = "Weight must be greater than 0")
     private Float weight;
+
+    public String toJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(this);
+    }
+
+    public static Product fromJson(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Product.class);
+    }
 }

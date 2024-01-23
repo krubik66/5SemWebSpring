@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="_shared/_layout">
+
+<title layout:fragment="title">Product list</title>
+
+<div layout:fragment="content">
+    <h1>Cart</h1>
+  <div class="content">
+    <table class="display table table-bordered" style="width:800px">
+      <thead class="text-center">
+      <tr>
+        <th class="text-right">Name</th>
+        <th class="text-left">Price</th>
+        <th class="text-left">Category</th>
+        <th class="text-left">Amount in cart</th>
+        <th class="text-center" colspan="3">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="i : ${#numbers.sequence(0,products.size())}">
+        <td class="text-right" th:text= "${products.get(i).name}"></td>
+        <td class="text-left" th:text= "${products.get(i).price}"></td>
+        <td class="text-left" th:text= "${products.get(i).category.name}"></td>
+        <td class="text-left" th:text= "${cart.getItems().values()[i]}"></td>
+        <form th:with="id=${products.get(i).id}" th:action="@{/shop/plus/{id}(id=${id})}" method="post">
+        <td>
+          <input type="submit" class="btn btn-primary" value="+">
+        </td>
+        </form>
+        <form th:with="id=${products.get(i).id}" th:action="@{/shop/minus/{id}(id=${id})}" method="post">
+          <td>
+            <input type="submit" class="btn btn-primary" value="-">
+          </td>
+        </form>
+        <form th:with="id=${products.get(i).id}" th:action="@{/shop/remove/{id}(id=${id})}" method="post">
+          <td>
+            <input type="submit" class="btn btn-danger" value="remove">
+          </td>
+        </form>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</html>
