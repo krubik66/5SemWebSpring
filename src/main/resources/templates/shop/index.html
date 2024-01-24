@@ -23,11 +23,7 @@
         <td class="text-left" th:text= "${product.getName()}"></td>
         <td class="text-left" th:text= "${product.getWeight()}"></td>
         <td class="text-center" th:text= "${product.getPrice()}"></td>
-        <form th:with="id=${product.id}" th:action="@{/shop/add/{id}(id=${id})}" th:object="${product.getId()}" method="post">
-          <td>
-            <input type="submit" class="btn btn-primary" value="Add to Cart">
-          </td>
-        </form>
+        <td><button th:attr="onclick=|addToCart(${product.getId()})|">add to cart</button></td>
       </tr>
       </tbody>
     </table>

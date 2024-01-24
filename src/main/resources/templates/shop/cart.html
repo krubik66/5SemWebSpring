@@ -20,30 +20,22 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="i : ${#numbers.sequence(0,products.size())}">
-        <td class="text-right" th:text= "${products.get(i).name}"></td>
-        <td class="text-left" th:text= "${products.get(i).price}"></td>
-        <td class="text-left" th:text= "${products.get(i).category.name}"></td>
-        <td class="text-left" th:text= "${cart.getItems().values()[i]}"></td>
-        <form th:with="id=${products.get(i).id}" th:action="@{/shop/plus/{id}(id=${id})}" method="post">
-        <td>
-          <input type="submit" class="btn btn-primary" value="+">
-        </td>
-        </form>
-        <form th:with="id=${products.get(i).id}" th:action="@{/shop/minus/{id}(id=${id})}" method="post">
-          <td>
-            <input type="submit" class="btn btn-primary" value="-">
-          </td>
-        </form>
-        <form th:with="id=${products.get(i).id}" th:action="@{/shop/remove/{id}(id=${id})}" method="post">
-          <td>
-            <input type="submit" class="btn btn-danger" value="remove">
-          </td>
-        </form>
+      <tr th:each="product : ${products}" th:name="product_row">
+        <div>
+        <td class="text-right" th:text= "${product?.name}"></td>
+        <td class="text-left" th:text= "${product?.price}"></td>
+        <td class="text-left" th:text= "${product?.category?.name}"></td>
+        <td class="text-left" th:name="product" th:attr="id=${product.getId()}"></td>
+          <td><button th:attr="onclick=|addToCart(${product.getId()})|">+</button></td>
+          <td><button th:attr="onclick=|substractFromCart(${product.getId()})|">-</button></td>
+          <td><button th:attr="onclick=|removeFromCart(${product.getId()})|">remove</button></td>
+        </div>
       </tr>
       </tbody>
     </table>
   </div>
+  <script>
+    window.onload = showAmount;
+  </script>
 </div>
-
 </html>
