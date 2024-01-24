@@ -1,8 +1,3 @@
-function getCookie(name) {
-    function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
-    var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
-    return match ? match[1] : null;
-}
 function addToCart(i) {
     var name = 'product'+i;
     var value = getCookie(name);
@@ -15,7 +10,7 @@ function addToCart(i) {
     showAmount();
 }
 
-function substractFromCart(i) {
+function subtractFromCart(i) {
     var name = 'product'+i;
     var value = getCookie(name);
     value = parseInt(value);
@@ -56,19 +51,29 @@ function showAmount() {
         var elementId = element.id;
 
         // Set the text content to the result of f(x)
-        element.innerHTML = amountInCart(elementId).toString();
+        element.innerText = amountInCart(elementId);
     }
 
     var rows = document.getElementsByName("product_row");
+    var sum = 0;
 
     for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var cell = row.getElementsByTagName("td")[3];
-        if (cell.innerText === '0') {
+        var amount = row.getElementsByTagName("td")[3];
+        var price = row.getElementsByTagName("td")[1];
+        price = parseFloat(price.innerText);
+        amount = parseInt(amount.innerText);
+        if (isNaN(amount) || amount === 0) {
             row.style.display= 'none';
         }
         else {
             row.style.display= '';
+
+            if (!isNaN(price)) {
+                sum += price*amount;
+            }
         }
     }
+
+    document.getElementById("cartSum").innerText = sum.toFixed(2);
 }

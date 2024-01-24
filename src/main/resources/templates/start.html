@@ -3,19 +3,17 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-    layout:decorate="_shared/_layout">
+      layout:decorate="_shared/_layout">
 
 <title layout:fragment="title">Product list</title>
 
 <div layout:fragment="content">
-<h1>The example</h1>
-<p>
-    <a sec:authorize="!isAuthenticated()" class="btn btn-primary" href="/login"> login </a>
-    <a sec:authorize="!isAuthenticated()" class="btn btn-primary" href="/register"> register </a>
+  <h1>Welcome to The Shop!</h1>
+  <p>
     <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
        href="/product/"> ADMIN-BOARD </a>
-    <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary"
+    <a sec:authorize="hasAuthority('CUSTOMER')" class="btn btn-primary"
        href="/shop/"> SHOP </a>
-</p>
+  </p>
 </div>
 </html>

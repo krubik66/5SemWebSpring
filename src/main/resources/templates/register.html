@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="_shared/_layout">
+
+<title layout:fragment="title">Register</title>
+<script layout:fragment="script"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+<div layout:fragment="content" class="container mt-5">
+  <h1>Register</h1>
+  <form class="row g-3 justify-content-center mx-lg-5 mx-md-0 mt-3" role="form" action="#" th:action="@{/register}" th:object="${user}"
+        method="post" novalidate>
+    <div class="col-md-6">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" th:field="*{name}" class="form-control" id="name">
+      <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-6">
+      <label for="surname" class="form-label">Surname</label>
+      <input type="text" th:field="*{surname}" class="form-control" id="surname">
+      <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-4">
+      <label for="pesel" class="form-label">PESEL</label>
+      <input type="text" th:field="*{pesel}" class="form-control" id="pesel">
+      <div th:if="${#fields.hasErrors('pesel')}" th:errors="*{pesel}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-4">
+      <label for="date-of-birth" class="form-label">Date of birth</label>
+      <input type="date" th:field="*{dateOfBirth}" class="form-control" id="date-of-birth">
+      <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{date-of-birth}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-4">
+      Gender
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="male" value="M" th:field="*{gender}">
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="female" value="F" th:field="*{gender}">
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">E-mail address</label>
+      <input type="text" class="form-control" th:field="*{email}" id="email">
+      <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-6">
+      <label for="phone" class="form-label">Phone number</label>
+      <input type="text" class="form-control" th:field="*{phoneNumber}" id="phone">
+      <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phone}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-12">
+      <label for="login" class="form-label">Login</label>
+      <input type="text" class="form-control" th:field="*{login}" id="login">
+      <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="invalid-feedback d-block"></div>
+      <div class="invalid-feedback d-block" th:text="${error} ? 'User with this login already exists!' : '' "></div>
+    </div>
+    <div class="col-md-12">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" th:field="*{password}" id="password">
+      <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback d-block"></div>
+    </div>
+    <div class="col-md-12 mb-5" style="text-align: center;">
+      <button type="reset" class="btn btn-danger btn-lg btn-block" style="margin-right: 1.8vw; width: 150px;">Clear</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" style="width: 150px;">Register</button>
+    </div>
+  </form>
+</div>
+
+</html>

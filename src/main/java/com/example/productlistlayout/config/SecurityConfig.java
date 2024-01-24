@@ -20,11 +20,15 @@ public class SecurityConfig {
                 .requestMatchers("/").permitAll()
                 .requestMatchers("/register").permitAll()
                 .requestMatchers("/css/**").permitAll()
+                .requestMatchers("/js/**").permitAll()
+                .requestMatchers("/shop/**").hasAuthority("CUSTOMER")
+                .requestMatchers("/product/**").hasAuthority("ADMIN")
+                .requestMatchers("/category/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/products")
+                .defaultSuccessUrl("/start", true)
                 .permitAll()
                 .and()
                 .logout()
@@ -35,6 +39,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/css/**");
+        return (web) -> web.ignoring().requestMatchers("/css/**").requestMatchers("/js/**");
     }
 }

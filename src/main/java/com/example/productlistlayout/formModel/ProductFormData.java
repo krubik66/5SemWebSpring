@@ -4,7 +4,7 @@ import com.example.productlistlayout.entity.Product;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMin;
 
 @Getter
 @Setter

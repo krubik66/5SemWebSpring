@@ -3,8 +3,19 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="_shared/_layout">
-
 <title layout:fragment="title">Product list</title>
+<script layout:fragment="script">
+  function addToCart(i) {
+    var name = 'product'+i;
+    var value = getCookie(name);
+    value = parseInt(value);
+    if (isNaN(value)) {
+      value = 0;
+    }
+    value = value + 1;
+    document.cookie = name + '=' + value +  ";path=/";
+  }
+</script>
 
 <div layout:fragment="content">
   <h1>Products list</h1>

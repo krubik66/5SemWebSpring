@@ -5,6 +5,7 @@
       layout:decorate="_shared/_layout">
 
 <title layout:fragment="title">Product list</title>
+<script layout:fragment="script" type="text/javascript" th:src="@{/js/cartHandler.js}"></script>
 
 <div layout:fragment="content">
     <h1>Cart</h1>
@@ -27,12 +28,14 @@
         <td class="text-left" th:text= "${product?.category?.name}"></td>
         <td class="text-left" th:name="product" th:attr="id=${product.getId()}"></td>
           <td><button th:attr="onclick=|addToCart(${product.getId()})|">+</button></td>
-          <td><button th:attr="onclick=|substractFromCart(${product.getId()})|">-</button></td>
+          <td><button th:attr="onclick=|subtractFromCart(${product.getId()})|">-</button></td>
           <td><button th:attr="onclick=|removeFromCart(${product.getId()})|">remove</button></td>
         </div>
       </tr>
       </tbody>
     </table>
+    <p>To pay:</p>
+    <p id="cartSum"></p>
   </div>
   <script>
     window.onload = showAmount;

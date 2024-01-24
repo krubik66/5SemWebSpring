@@ -1,16 +1,14 @@
 package com.example.productlistlayout.entity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 
 @Entity
 @Data
@@ -21,6 +19,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
     private long id;
+
+    @Size(max = 255)
+    @NotBlank(message="Invalid product name!")
     private String name;
     @ManyToOne
     @JoinTable (name="productsCategory")
@@ -30,13 +31,4 @@ public class Product {
     @DecimalMin(value = "0.0", inclusive = false, message = "Weight must be greater than 0")
     private Float weight;
 
-    public String toJson() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(this);
-    }
-
-    public static Product fromJson(String json) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(json, Product.class);
-    }
 }
