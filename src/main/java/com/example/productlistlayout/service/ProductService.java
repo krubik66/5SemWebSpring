@@ -16,24 +16,34 @@ import java.util.Random;
 @Service
 @Getter
 public class ProductService {
-    @Autowired
+    private final
     ProductRepository productRepository;
 
-    @Autowired
+    private final
     CategoryRepository categoryRepository;
 
-    public ProductService() {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public void seed(){
         Random random = new Random();
-        productRepository.save(Product.builder()
-                .name("Japko")
-                .weight(random.nextFloat(20))
-                .price(random.nextFloat(100))
-                .category(null)
-                .build()
-        );
+        Category category = Category.builder()
+                                .name("Fruit")
+                                .build();
+        categoryRepository.save(category);
+        for (String fruit: new String[]{"apple", "banana", "grapes"}) {
+            productRepository.save(Product.builder()
+                    .name(fruit)
+                    .weight(random.nextFloat(20))
+                    .price(random.nextFloat(100))
+                    .category(category)
+                    .build()
+            );
+        }
+
+
     }
 
     private boolean isEmpty() {

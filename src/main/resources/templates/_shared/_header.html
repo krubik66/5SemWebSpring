@@ -6,7 +6,12 @@
                 <a class="navbar-brand" href="/start">The Shop</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/start">Home</a></li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="active">
+                    <a href="/product">Home</a>
+                </li>
+                <li sec:authorize="hasAuthority('CUSTOMER')" class="active">
+                    <a href="/shop">Home</a>
+                </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
                     <a href="/product/seed">Seed</a>
                 </li>
@@ -15,9 +20,6 @@
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
                     <a href="/category/add">Add category</a>
-                </li>
-                <li sec:authorize="hasAuthority('CUSTOMER')">
-                    <a href="/shop">Shop</a>
                 </li>
                 <li sec:authorize="hasAuthority('CUSTOMER')">
                     <a href="/shop/cart">Cart</a>

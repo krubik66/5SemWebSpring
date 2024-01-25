@@ -23,10 +23,10 @@
       <tbody>
       <tr th:each="product : ${products}" th:name="product_row">
         <div>
-        <td class="text-right" th:text= "${product?.name}"></td>
-        <td class="text-left" th:text= "${product?.price}"></td>
-        <td class="text-left" th:text= "${product?.category?.name}"></td>
-        <td class="text-left" th:name="product" th:attr="id=${product.getId()}"></td>
+          <td class="text-right" th:text= "${product?.name}"></td>
+          <td class="text-left" th:text= "${product?.price}"></td>
+          <td class="text-left" th:text= "${product?.category?.name}"></td>
+          <td class="text-left" th:name="product" th:attr="id=${product.getId()}"></td>
           <td><button th:attr="onclick=|addToCart(${product.getId()})|">+</button></td>
           <td><button th:attr="onclick=|subtractFromCart(${product.getId()})|">-</button></td>
           <td><button th:attr="onclick=|removeFromCart(${product.getId()})|">remove</button></td>
